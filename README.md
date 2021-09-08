@@ -1,15 +1,7 @@
-# Email generator:
-- generates 500 random emails with past created dates
+# Email database:
 - a Node.Js app with mySql
 
-## Create and populate the users table in users_emails database:
-- create database: 
-        CREATE DATABASE users_emails
-- create table: 
-        CREATE TABLE users(
-            email VARCHAR(255) PRIMARY KEY,
-            created_at TIMESTAMP DEFAULT NOW()
-        );
+## get total users in database:
 - npm start
 
 ## Environmental variables: 
@@ -19,5 +11,6 @@
 
 ## Dependencies:
     "dotenv": "^10.0.0",
+    "express": "^4.17.1",
     "faker": "^5.5.3",
     "mysql": "^2.18.1"
