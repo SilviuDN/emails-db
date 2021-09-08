@@ -1,5 +1,10 @@
 const express = require('express')
+const bodyParser = require('body-parser')
+
 const app = express()
+app.use(bodyParser.urlencoded({extended: true}))
+
+app.set('view engine', 'ejs')
 
 require("dotenv/config");
 
@@ -20,10 +25,20 @@ app.get('/', (req, res) => {
     const totalUsers = `SELECT COUNT(*) AS count FROM users`
     let result = connection.query( totalUsers, (error, results) => {
         if(error) throw error
-        console.log('Total users: ',results[0].count)
-        res.status(200).send('Total users: ' + results[0].count)
+        let count = results[0].count
+        res.render('index', {count})
       })
-    // console.log(result)
+})
+
+app.post('/sign-up', (req, res) => {
+    const { email } = req.body
+    const insertOneQuery = `INSERT INTO users SET ?`
+
+    connection.query( insertOneQuery, {email}, (error, results) => {
+        if(error) throw error
+        console.log(results)
+    })
+    res.redirect('/')
 })
 
 app.get('/code', (req, res) => {
